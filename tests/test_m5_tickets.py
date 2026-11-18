@@ -4,9 +4,9 @@ from app.pipeline import run
 from app.errors import DomainError
 from app.normalize import instant
 from app.modules.m5_tickets.rules import verify_tickets
-def pay():return dict(channel='官方',seat='A-01',order='O',time=instant('2026-11-17T10:00:00Z'),amount=D(100),lease='L')
+def pay():return dict(show='1117-A',channel='官方',seat='A-01',order='O',time=instant('2026-11-17T10:00:00Z'),amount=D(100),lease='L')
 def issue(**kw):
- x=dict(id='I',channel='官方',seat='A-01',order='O',time=instant('2026-11-17T10:01:00Z'),type='issue',amount=D(100),ticket='000001',_line=2);x.update(kw);return x
+ x=dict(id='I',show='1117-A',channel='官方',seat='A-01',order='O',time=instant('2026-11-17T10:01:00Z'),type='issue',amount=D(100),ticket='000001',_line=2);x.update(kw);return x
 
 def test_valid_ticket():
     assert verify_tickets([issue()],[pay()])[2][0]['ticket']=='000001'

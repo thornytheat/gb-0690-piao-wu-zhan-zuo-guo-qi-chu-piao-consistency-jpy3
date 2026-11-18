@@ -6,7 +6,7 @@ from app.normalize import instant
 from app.modules.m2_seats.rules import normalize,dedup
 END=instant('2026-11-18T00:00:00+08:00')
 def row(**kw):
- x=dict(id='00001',channel='官方',seat='A01',order='00001',time='2026-11-17T10:00:00+08:00',type='hold',expires='2026-11-17T10:15:00+08:00',version='1',amount='100',ticket='',_line=2);x.update(kw);return x
+ x=dict(id='00001',show='1117-A',channel='官方',seat='A01',order='00001',time='2026-11-17T10:00:00+08:00',type='hold',expires='2026-11-17T10:15:00+08:00',version='1',amount='100',ticket='',_line=2);x.update(kw);return x
 
 def test_seat_alias():
     # TRAP-08

@@ -4,7 +4,7 @@ from app.pipeline import run
 from app.errors import DomainError
 from app.normalize import instant
 from app.modules.m6_reconcile.rules import reconcile
-def row(amount='100'):return dict(channel='官方',amount=D(amount))
+def row(amount='100'):return dict(show='1117-A',channel='官方',amount=D(amount))
 
 def test_balanced():
     assert reconcile([row()],[row()])[0]['state']=='通过'

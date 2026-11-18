@@ -10,4 +10,4 @@ def execute(ctx):
         try:good.append(normalize(row,end))
         except DomainError as exc:ctx['quarantine'].append(rejected(row,exc.code,exc.message))
     good,bad=dedup(good);ctx['quarantine'].extend(bad);ctx['records']=good;ctx['observation_end']=end
-    ctx['stages'].append({'title':'座席映射','rows':good,'metrics':{'席位目录':16,'事件':len(good),'渠道':len({r['channel'] for r in good})}});return ctx
+    ctx['stages'].append({'title':'座席映射','rows':good,'metrics':{'席位目录':16,'事件':len(good),'渠道':len({r['channel'] for r in good}),'场次':len({r['show'] for r in good})}});return ctx

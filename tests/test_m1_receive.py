@@ -8,24 +8,24 @@ from app.config import SAMPLES
 
 def test_bom(raw):
     # TRAP-02
-    assert receive(raw)['records'][0]['id']=='00001'
+    assert receive(raw,'1117-A')['records'][0]['id']=='00001'
 
 def test_real_count(raw):
-    assert receive(raw)['input_count']==49
+    assert receive(raw,'1117-A')['input_count']==49
 
 def test_real_width(raw):
-    assert receive(raw)['quarantine'][0]['code']=='COLUMN_COUNT'
+    assert receive(raw,'1117-A')['quarantine'][0]['code']=='COLUMN_COUNT'
 
 def test_large_id(raw):
     # TRAP-09
-    assert any(x['id']=='9007199254740993123' for x in receive(raw)['records'])
+    assert any(x['id']=='9007199254740993123' for x in receive(raw,'1117-A')['records'])
 
 def test_empty():
-    with pytest.raises(DomainError):receive(b'')
+    with pytest.raises(DomainError):receive(b'','1117-A')
 
 def test_header():
-    with pytest.raises(DomainError):receive(b'a,b\n1,2')
+    with pytest.raises(DomainError):receive(b'a,b\n1,2','1117-A')
 
 def test_legacy():
-    assert receive((SAMPLES/'legacy.csv').read_bytes())['encoding']=='gb18030'
+    assert receive((SAMPLES/'legacy.csv').read_bytes(),'1117-A')['encoding']=='gb18030'
 

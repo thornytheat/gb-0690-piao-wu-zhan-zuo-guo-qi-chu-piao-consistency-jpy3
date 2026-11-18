@@ -28,6 +28,7 @@
 | TRAP-14 | 同版冲突 | 覆盖或重复售卖 | 事件时间回放并保留隔离证据 | `app/modules/m2_seats/rules.py` | `tests/test_m2_seats.py::test_real_conflict` |
 | TRAP-23 | 过期端点 | 覆盖或重复售卖 | 事件时间回放并保留隔离证据 | `app/modules/m3_leases/rules.py` | `tests/test_m3_leases.py::test_expiration_endpoint_reusable` |
 | TRAP-26 | 陈旧复核 | 覆盖或重复售卖 | 事件时间回放并保留隔离证据 | `app/store.py` | `tests/test_m7_replay.py::test_stale_review` |
+| TRAP-31 | 多场共用座席号、部分行缺场次 | 猜错场次会让两场同号座席互挡或同场卖两张票 | 全部裁决改用(场次,座席)复合键；缺场次行NO_SHOW隔离、保留行号可追查、不进任何场次余票与收入；重跑同输入哈希复用批次不新增 | `app/modules/m1_receive/rules.py` `app/modules/m3_leases/rules.py` `app/modules/m6_reconcile/rules.py` | `tests/test_shows.py` |
 
 ## 对账规则
 
@@ -36,4 +37,4 @@
 
 ## 已知不覆盖
 
-单场演出16个座席，不处理退票退款。占座租约释放或到期后，迟到付款不能恢复租约；出票必须已有有效付款且座席不可重复出票。
+每场演出16个座席，多场共用座席编号但按(场次,座席)独立核算，不处理退票退款。占座租约释放或到期后，迟到付款不能恢复租约；出票必须已有有效付款，票号全场唯一、同场次座席不可重复出票。场次缺失的记录只进隔离区，不改变任何一场的余票和收入。

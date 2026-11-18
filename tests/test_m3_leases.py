@@ -4,8 +4,8 @@ from app.pipeline import run
 from app.errors import DomainError
 from app.normalize import instant
 from app.modules.m3_leases.rules import replay
-def event(id,t,kind='hold',order='O',expires='10:15'):
- return dict(id=id,time=instant('2026-11-17T'+t+':00+08:00'),type=kind,seat='A-01',order=order,expires=instant('2026-11-17T'+expires+':00+08:00') if kind=='hold' else None,channel='官方',_line=int(id)+1)
+def event(id,t,kind='hold',order='O',expires='10:15',show='1117-A'):
+ return dict(id=id,show=show,time=instant('2026-11-17T'+t+':00+08:00'),type=kind,seat='A-01',order=order,expires=instant('2026-11-17T'+expires+':00+08:00') if kind=='hold' else None,channel='官方',_line=int(id)+1)
 END=instant('2026-11-18T00:00:00+08:00')
 
 def test_expiration_endpoint_reusable():

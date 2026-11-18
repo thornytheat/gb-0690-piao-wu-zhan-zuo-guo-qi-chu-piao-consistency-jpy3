@@ -4,8 +4,8 @@ def match_payments(rows,leases):
     good=[];bad=[];payments=[];paid=set()
     for row in sorted(rows,key=lambda x:(x['time'],x['id'])):
         if row['type']!='pay':good.append(row);continue
-        candidates=[l for l in leases if l['seat']==row['seat'] and l['order']==row['order'] and l['start']<=row['time']<l['end']]
-        if len(candidates)!=1:bad.append(rejected(row,'EXPIRED','付款未落入有效占座区间'));continue
+        candidates=[l for l in leases if l['show']==row['show'] and l['seat']==row['seat'] and l['order']==row['order'] and l['start']<=row['time']<l['end']]
+        if len(candidates)!=1:bad.append(rejected(row,'EXPIRED','付款未落入同场次有效占座区间'));continue
         lease=candidates[0]
         if row['channel']!=lease['channel']:bad.append(rejected(row,'CONFLICT','支付渠道与占座渠道不符'));continue
         if lease['lease'] in paid:bad.append(rejected(row,'DUPLICATE','租约已支付'));continue

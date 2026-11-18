@@ -4,14 +4,14 @@ from app.pipeline import run
 from app.errors import DomainError
 from app.normalize import instant
 from app.modules.m7_replay.rules import audit
-def e(time,line):return dict(id=str(line),seat='A-01',order='O',time=instant('2026-11-17T'+time+':00Z'),_line=line)
+def e(time,line):return dict(id=str(line),show='1117-A',seat='A-01',order='O',time=instant('2026-11-17T'+time+':00Z'),_line=line)
 
 def test_late_kept():
     # TRAP-13
     x=audit([e('10:00',2),e('09:00',3)],[],2,10);assert x['late'][0]['late_minutes']==60 and x['retained']==2
 
 def test_watermark_monotonic():
-    assert audit([e('10:00',2),e('09:00',3)],[],2,10)['watermark']==instant('2026-11-17T10:00:00Z')
+    assert audit([e('10:00',2),e('09:00',3)],[],2,10)['watermark']=={'1117-A':instant('2026-11-17T10:00:00Z')}
 
 def test_row_mismatch():
     with pytest.raises(DomainError):audit([],[],1,10)

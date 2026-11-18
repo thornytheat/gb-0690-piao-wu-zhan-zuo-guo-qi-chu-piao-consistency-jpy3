@@ -4,8 +4,8 @@ from app.pipeline import run
 from app.errors import DomainError
 from app.normalize import instant
 from app.modules.m4_payments.rules import match_payments
-def l(end='10:15'):return dict(lease='L',channel='官方',seat='A-01',order='O',start=instant('2026-11-17T10:00:00Z'),end=instant('2026-11-17T'+end+':00Z'))
-def p(t='10:10',id='1'):return dict(id=id,channel='官方',seat='A-01',order='O',time=instant('2026-11-17T'+t+':00Z'),type='pay',amount=D(100),_line=2)
+def l(end='10:15'):return dict(show='1117-A',lease='L',channel='官方',seat='A-01',order='O',start=instant('2026-11-17T10:00:00Z'),end=instant('2026-11-17T'+end+':00Z'))
+def p(t='10:10',id='1'):return dict(id=id,show='1117-A',channel='官方',seat='A-01',order='O',time=instant('2026-11-17T'+t+':00Z'),type='pay',amount=D(100),_line=2)
 
 def test_before_expiry_paid():
     assert match_payments([p()],[l()])[2][0]['lease']=='L'
